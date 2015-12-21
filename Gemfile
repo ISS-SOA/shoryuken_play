@@ -4,7 +4,7 @@ gem 'sinatra'
 gem 'thin'
 gem 'slim'
 
-gem 'active_support'
+gem 'activesupport'
 
 gem 'config_env'
 gem 'aws-sdk', '~> 2'
