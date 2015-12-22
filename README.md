@@ -5,7 +5,8 @@ requests from a Sinatra web application.
 
 ## Configuration
 
-To run this app locally, you must get an AWS account, setup an IAM user, and give it full privileges to write to SQS.
+To run this app locally, you must get an AWS account, setup an IAM user, and
+give it full privileges to write to SQS.
 
 1. Copy the `config/config_env.example.rb` file into `config/config_env.rb`
 2. Add your AWS IAM user credentials to `config_env.rb`
@@ -28,6 +29,14 @@ Use `Ctrl-c` to kill them when you are done using them (see next section).
 
 1. Open your browser to `http://localhost:9292/`
 2. Fill in the textbox input with any string (such as "Hello World!")
-3. Submit the form
+3. Submit the form to request stringification of your input!
 4. In the following screen, hit reload once in a while until the worker has
 updated the record
+5. Notice that after submitting your request, you could bookmark the result page
+and return to it any time later (while the worker processes the request).
+
+## Deploy
+
+You may try to deploy this project to Heroku or another PaaS. Setup your Heroku
+(or other) project with your AWS environment variables, Notice that `Procfile`
+tells Heroku that you need web and worker processes
