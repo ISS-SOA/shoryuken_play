@@ -1,15 +1,18 @@
 # Shoryuken Play
 
 A simple demonstration of the Shoryuken worker asynchronously processing job
-requests from a Sinatra web application.
+requests from a Sinatra web application, and updating a DynamoDB table.
 
 ## Configuration
 
 To run this app locally, you must get an AWS account, setup an IAM user, and
-give it full privileges to write to SQS.
+give it full privileges for SQS and DynamoDB. Notice that the `Rakefile` has
+convenient tasks to create your SQS queue and DynamoDB table!
 
 1. Copy the `config/config_env.example.rb` file into `config/config_env.rb`
 2. Add your AWS IAM user credentials to `config_env.rb`
+3. Create the SQS queue using: `$ rake queue:create`
+4. Create the DynamoDB table using: `$rake db:migrate`
 
 ## Running
 

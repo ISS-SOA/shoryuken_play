@@ -6,7 +6,7 @@ namespace :queue do
     sqs = Aws::SQS::Client.new(region: ENV['AWS_REGION'])
 
     begin
-      queue = sqs.queues.create('RecentCadet')
+      queue = sqs.create_queue(queue_name: 'worker_bee')
       puts "Queue created"
     rescue => e
       puts "Error creating queue: #{e}"
