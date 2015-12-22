@@ -11,6 +11,7 @@ class StringWorker
     input.upcased = input.original.upcase
     input.downcased = input.original.downcase
     input.capitalized = input.original.capitalize
+    sleep(5)
     input.save
   rescue => e
     puts "EXCEPTION: #{e}"

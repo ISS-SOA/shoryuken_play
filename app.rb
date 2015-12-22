@@ -47,6 +47,8 @@ class Stringifier < Sinatra::Base
           Stringifier
         body
           h1 Your Results
+          - if @input.capitalized.empty?
+            p Processing your input... please reload
           table
             thead
               - @strings.each do |s|
