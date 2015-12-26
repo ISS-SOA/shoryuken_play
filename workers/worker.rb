@@ -2,7 +2,8 @@ require 'shoryuken'
 require 'config_env'
 require_relative '../models/input'
 
-ConfigEnv.path_to_config("#{__dir__}/../config/config_env.rb")
+env_file = "#{__dir__}/../config/config_env.rb"
+ConfigEnv.path_to_config(env_file) unless ENV['AWS_REGION']
 
 class StringWorker
   include Shoryuken::Worker

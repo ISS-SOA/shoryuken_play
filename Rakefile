@@ -1,3 +1,9 @@
+
+desc "Start Shoryuken worker"
+task :worker do
+  sh 'bundle exec shoryuken -r ./workers/worker.rb -C ./workers/shoryuken.yml'
+end
+
 namespace :queue do
   require 'aws-sdk'
 
