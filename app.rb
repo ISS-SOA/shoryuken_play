@@ -14,17 +14,7 @@ class Stringifier < Sinatra::Base
   end
 
   get '/' do
-    slim <<-EOF
-      html
-        title
-          Stringifier
-        body
-          h1 Welcome to Stringifier
-          p Enter you string below
-          form action='/input' method='POST'
-            input type='text' name='input'
-            button type='submit' value='btn_input' Stringify!
-    EOF
+    slim :input
   end
 
   post '/input/?' do
@@ -41,25 +31,7 @@ class Stringifier < Sinatra::Base
     @input = Input.find(params[:id])
     @strings = [:original, :reversed, :upcase, :downcase, :capitalize]
 
-    slim <<-EOF
-      html
-        title
-          Stringifier
-        body
-          h1 Your Results
-          - if @input.capitalized.empty?
-            p Processing your input... please reload
-          table
-            thead
-              - @strings.each do |s|
-                th = s.to_s
-            tbody
-              td = @input.original
-              td = @input.reversed
-              td = @input.upcased
-              td = @input.downcased
-              td = @input.capitalized
-    EOF
+    slim :words
   end
 
   run! if app_file == $0
