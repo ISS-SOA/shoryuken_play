@@ -1,6 +1,6 @@
-require 'dynamoid'
+require_relative '../config/database'
 
-class Input
+class Word
   include Dynamoid::Document
 
   field :original, :string, {default: ''}

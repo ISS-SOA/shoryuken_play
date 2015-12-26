@@ -4,15 +4,15 @@ html
     Stringifier
   body
     h1 Your Results
-    - if @input.capitalized.empty?
-      p Processing your input... please reload
     table
       thead
         - @strings.each do |s|
           th = s.to_s
       tbody
-        td = @input.original
-        td = @input.reversed
-        td = @input.upcased
-        td = @input.downcased
-        td = @input.capitalized
+        - @words.each do |word|
+          tr
+            td = word.original
+            td = word.reversed
+            td = word.upcased
+            td = word.downcased
+            td = word.capitalized
