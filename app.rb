@@ -10,7 +10,7 @@ require_relative 'workers/worker'
 
 class Stringifier < Sinatra::Base
   configure :development, :test do
-    ConfigEnv.path_to_config("#{__dir__}/../config/config_env.rb")
+    ConfigEnv.path_to_config("#{__dir__}/config/config_env.rb")
   end
 
   get '/' do

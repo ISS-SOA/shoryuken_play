@@ -1,5 +1,8 @@
 require 'shoryuken'
+require 'config_env'
 require_relative '../models/input'
+
+ConfigEnv.path_to_config("#{__dir__}/../config/config_env.rb")
 
 class StringWorker
   include Shoryuken::Worker
