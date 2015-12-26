@@ -10,9 +10,10 @@ html
           th = s.to_s
       tbody
         - @words.each do |word|
-          tr
-            td = word.original
-            td = word.reversed
-            td = word.upcased
-            td = word.downcased
-            td = word.capitalized
+          - if word
+            tr
+              td = word.original
+              td = word.reversed
+              td = word.upcased
+              td = word.downcased
+              td = word.capitalized
