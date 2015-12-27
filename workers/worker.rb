@@ -10,36 +10,35 @@ ConfigEnv.path_to_config(env_file) unless ENV['AWS_REGION']
 class StringWorker
   include Shoryuken::Worker
   shoryuken_options queue: 'worker_bee', auto_delete: true
-  TASKS_COUNT = 4
+  TASKS_COUNT = 5
 
   def perform(sqs_msg, worker_params)
     params = JSON.parse(worker_params)
     word_id = params['word']
-    channel_id = params['channel']
+    @channel_id = params['channel']
     @progress = 0
 
     word = Word.find(word_id)
     word.reversed = word.original.reverse
-    sleep(2)
-    publish(channel_id, incr_count)
+    update_progress
     word.upcased = word.original.upcase
-    sleep(2)
-    publish(channel_id, incr_count)
+    update_progress
     word.downcased = word.original.downcase
-    sleep(2)
-    publish(channel_id, incr_count)
+    update_progress
     word.capitalized = word.original.capitalize
-    sleep(2)
-    publish(channel_id, incr_count)
+    update_progress
     word.save
+    update_progress
   rescue => e
     puts "EXCEPTION: #{e}"
   end
 
   private
 
-  def incr_count
-    (@progress += (100/TASKS_COUNT)).to_s
+  def update_progress
+    sleep(rand(1..3))
+    percent = (@progress += (100/TASKS_COUNT)).to_s
+    publish(@channel_id, percent)
   end
 
   def publish(channel, message)
