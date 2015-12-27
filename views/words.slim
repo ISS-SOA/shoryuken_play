@@ -3,17 +3,45 @@ html
   title
     Stringifier
   body
-    h1 Your Results
-    table
-      thead
-        - @strings.each do |s|
-          th = s.to_s
-      tbody
-        - @words.each do |word|
-          - if word
-            tr
-              td = word.original
-              td = word.reversed
-              td = word.upcased
-              td = word.downcased
-              td = word.capitalized
+    link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+    script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"
+    script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+    
+    div class="container"
+      h1 Your Results
+      table class="table"
+        thead
+          - @strings.each do |s|
+            th = s.to_s
+        tbody
+          - @words.each do |word|
+            - if word
+              tr
+                td = word.original
+                td = word.reversed
+                td = word.upcased
+                td = word.downcased
+                td = word.capitalized
+      - if @channel
+        p Processing:
+        .progress
+          .progress-bar.progress-bar-success.progress-bar-striped.active[
+            role="progressbar" aria-valuenow="0" aria-valuemin="0" 
+            aria-valuemax="100" style="width:0%"]
+                  
+        script src="http://localhost:9292/faye.js"
+        javascript:
+          var channel = "#{@channel}";
+          var client = new Faye.Client('http://localhost:9292/faye');
+          client.subscribe('/' + channel, function(message) {
+            var bar = document.getElementsByClassName("progress-bar")[0];
+            bar.setAttribute("aria-valuenow", message)
+            bar.setAttribute("style", "width:"+message+"%")
+            bar.innerHTML = message+"%"
+            
+            if (message == "100") {
+              setTimeout(function () {
+                window.location = window.location.href.split('?')[0]
+              }, 500);
+            }
+          });
