@@ -24,15 +24,21 @@ table class="table"
   javascript:
     var channel = "#{@channel}";
     var client = new Faye.Client('http://localhost:9292/faye');
+    var bar = document.getElementsByClassName("progress-bar")[0];
+    var reg = /\:(\d+)%/
     client.subscribe('/' + channel, function(message) {
-      var bar = document.getElementsByClassName("progress-bar")[0];
-      bar.setAttribute("aria-valuenow", message)
-      bar.setAttribute("style", "width:"+message+"%")
-      bar.innerHTML = message+"%"
-      
-      if (message == "100") {
-        setTimeout(function () {
-          window.location = window.location.href.split('?')[0]
-        }, 500);
+      var progress = bar.getAttribute("style")
+      var currentProgress = reg.exec(progress)[1]
+
+      if (parseInt(message) > parseInt(currentProgress)) {
+        bar.setAttribute("aria-valuenow", message)
+        bar.setAttribute("style", "width:"+message+"%")
+        bar.innerHTML = message+"%"
+        
+        if (message == "100") {
+          setTimeout(function () {
+            window.location = window.location.href.split('?')[0]
+          }, 2000);
+        }
       }
     });
