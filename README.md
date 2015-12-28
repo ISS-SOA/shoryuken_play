@@ -3,11 +3,24 @@
 A simple demonstration of the Shoryuken worker asynchronously processing job
 requests from a Sinatra web application, and updating a DynamoDB table.
 
+## Clone this Repo
+
+```
+$ git clone git@github.com:ISS-SOA/shoryuken_play.git
+```
+## Choose your branch
+
+There are two branches with different features to choose from:
+- `1_basic_worker`: shows how to integrate a Shoryuken worker with a Sinatra application using an SQS queue; Use this to understand how Shoryuken works.
+- `2_progressbar`: builds on `1_basic_worker` by adding a Bootstrap progress bar that receives realtime updates from the worker using web sockets. Use this to understand how web sockets and the Faye library work.
+
+Check out the appropriate branch to view/run (master branch will always merge from the latest branch)
+
 ## Configuration
 
 To run this app locally, you must get an AWS account, setup an IAM user, and
 give it full privileges for SQS and DynamoDB. Notice that the `Rakefile` has
-convenient tasks to create your SQS queue and DynamoDB table!
+convenient tasks to create and wipe your SQS queue and DynamoDB table!
 
 1. Copy the `config/config_env.example.rb` file into `config/config_env.rb`
 2. Add your AWS IAM user credentials to `config_env.rb`
@@ -16,7 +29,7 @@ convenient tasks to create your SQS queue and DynamoDB table!
 
 ## Running
 
-Open two unix terminals.In the first one, run our application:
+Open two unix terminals.In the first one, run the Sinatra application:
 ```
 $ bundle exec rackup
 ```
