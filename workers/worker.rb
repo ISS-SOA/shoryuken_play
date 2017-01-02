@@ -46,7 +46,7 @@ class StringWorker
         :headers  => { 'Content-Type' => 'application/json' },
         :body    => {
             channel: "/#{channel}",
-            data: message
+              data: message
         }.to_json
     })
   end
